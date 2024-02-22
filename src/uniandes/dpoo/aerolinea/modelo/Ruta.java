@@ -5,8 +5,12 @@ package uniandes.dpoo.aerolinea.modelo;
  */
 public class Ruta
 {
-    // TODO completar
-
+    
+	private String horaSalida;
+	private String horaLlegada;
+	private String codigoRuta;
+	private Aeropuerto destino;
+	private Aeropuerto origen;
 
     /**
      * Dada una cadena con una hora y minutos, retorna los minutos.
@@ -15,6 +19,41 @@ public class Ruta
      * @param horaCompleta Una cadena con una hora, donde los minutos siempre ocupan los dos últimos caracteres
      * @return Una cantidad de minutos entre 0 y 59
      */
+	public Ruta (Aeropuerto origen, Aeropuerto destino, String horaSalida, String horaLlegada, String codigoRuta)
+	{
+		
+	}
+	
+	public String getCodigoRuta()
+	{
+		return null;
+	}
+	
+	public Aeropuerto getOrigen()
+	{
+		return null;
+	}
+	
+	public Aeropuerto getDestino()
+	{
+		return null;
+	}
+	
+	public String getHotaSalida()
+	{
+		return null;
+	}
+	
+	public String getHoraLlegada()
+	{
+		return null;
+	}
+	
+	public int getDuracion()
+	{
+		return -1;
+	}
+	
     public static int getMinutos( String horaCompleta )
     {
         int minutos = Integer.parseInt( horaCompleta ) % 100;

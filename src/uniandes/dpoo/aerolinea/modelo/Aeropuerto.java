@@ -12,7 +12,13 @@ import uniandes.dpoo.aerolinea.exceptions.AeropuertoDuplicadoException;
  */
 public class Aeropuerto
 {
-    // TODO completar
+    private String nombre;
+    private String codigo;
+    private String nombreCiudad;
+    private double latitud;
+    private double longitud;
+    private static Set<String> codigosUtilizados = new HashSet<String>();
+	private static int RADIO_TERRESTRE = 6371;
     
 
     /**
@@ -28,6 +34,37 @@ public class Aeropuerto
      * @param aeropuerto2
      * @return La distancia en kilómetros entre los puntos
      */
+	
+	public Aeropuerto(String nombre, String codigo, String nombreCiudad, double latitud, double longitud)
+	{
+		
+	}
+	
+	public String getNombre()
+	{
+		return null;
+	}
+	
+	public String getCodigo()
+	{
+		return null;
+	}
+	
+	public String getNombreCiudad()
+	{
+		return null;
+	}
+	
+	public double getLatitud()
+	{
+		return -1;
+	}
+	
+	public double getLongitud()
+	{
+		return -1;
+	}
+	
     public static int calcularDistancia( Aeropuerto aeropuerto1, Aeropuerto aeropuerto2 )
     {
         // Convertir los ángulos a radianes para facilitar las operaciones trigonométricas
