@@ -13,36 +13,40 @@ public class Tiquete
 	
 	public Tiquete(String codigo, Vuelo vuelo, Cliente clienteComparador, int tarifa)
 	{
+		this.codigo = codigo;
+		this.vuelo = vuelo;
+		cliente = clienteComparador;
+		this.tarifa = tarifa;
 		
 	}
 	
 	public Cliente getCliente()
 	{
-		return null;
+		return cliente;
 	}
 	
 	public Vuelo getVuelo()
 	{
-		return null;
+		return vuelo;
 	}
 	
 	public String getCodigo()
 	{
-		return null;
+		return codigo;
 	}
 	
 	public int getTarifa()
 	{
-		return -1;
+		return tarifa;
 	}
 	
 	public void marcarComoUsado()
 	{
-		
+		usado = true;
 	}
 	
 	public boolean esUsado()
 	{
-		return false;
+		return usado;
 	}
 }

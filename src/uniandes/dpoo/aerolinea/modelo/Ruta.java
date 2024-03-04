@@ -21,37 +21,66 @@ public class Ruta
      */
 	public Ruta (Aeropuerto origen, Aeropuerto destino, String horaSalida, String horaLlegada, String codigoRuta)
 	{
-		
+		this.origen = origen;
+		this.destino= destino;
+		this.horaSalida = horaSalida;
+		this.horaLlegada = horaLlegada;
+		this.codigoRuta = codigoRuta;
 	}
 	
 	public String getCodigoRuta()
 	{
-		return null;
+		return codigoRuta;
 	}
 	
 	public Aeropuerto getOrigen()
 	{
-		return null;
+		return origen;
 	}
 	
 	public Aeropuerto getDestino()
 	{
-		return null;
+		return destino;
 	}
 	
 	public String getHotaSalida()
 	{
-		return null;
+		return horaSalida;
 	}
 	
 	public String getHoraLlegada()
 	{
-		return null;
+		return horaLlegada;
 	}
 	
 	public int getDuracion()
 	{
-		return -1;
+		int horaSalidaN = getHoras(horaSalida);
+		int horaLlegadaN = getHoras(horaLlegada);
+		
+		int minutoSalida = getMinutos(horaSalida);
+		int minutoLlegada = getMinutos(horaLlegada);
+		
+		int horaSalidaM = horaSalidaN*60;
+		int horaLlegadaM = horaLlegadaN*60;
+		
+		minutoSalida = minutoSalida + horaSalidaM;
+		minutoLlegada = minutoLlegada + horaLlegadaM;
+		
+		int Duracion = minutoLlegada - minutoSalida;
+		
+		if (Duracion < 0)
+		{
+		    minutoLlegada = (minutoSalida-minutoLlegada - 60);
+		    horaSalidaN = getHoras("2300");
+		    minutoSalida = getMinutos("2300");
+		    horaSalidaM = horaSalidaN*60;
+		    minutoSalida = minutoSalida + horaSalidaM;
+		    
+		    Duracion = (minutoLlegada - minutoSalida)*-1;
+		}
+		
+		return Duracion;
 	}
 	
     public static int getMinutos( String horaCompleta )

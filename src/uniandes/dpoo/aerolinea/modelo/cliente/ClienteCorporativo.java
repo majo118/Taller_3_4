@@ -7,20 +7,22 @@ import org.json.JSONObject;
  */
 public class ClienteCorporativo extends Cliente
 {
-    public int CORPORATIVO = 1;
-    public int GRANDE = 2;
-    public int PEQUEÑA = 3;
+    public static final String CORPORATIVO = "Corporativo";
+    public static final int GRANDE = 1;
+    public static final int MEDIANA = 2;
+    public static final int PEQUEÑA = 3;
     private String nombreEmpresa;
     private int tamanoEmpresa;
     
     public ClienteCorporativo (String nombreEmpresa, int tamano)
     {
-    	
+    	this.nombreEmpresa = nombreEmpresa;
+    	this.tamanoEmpresa = tamano;
     }
     
     public String getNombreEmpresa()
     {
-    	return null;
+    	return nombreEmpresa;
     }
     
     public int getTamanoEmpresa()
@@ -30,7 +32,7 @@ public class ClienteCorporativo extends Cliente
     
     public String getTipoCliente()
     {
-    	return null;
+    	return CORPORATIVO;
     }
     
     public String getIdentificador() 

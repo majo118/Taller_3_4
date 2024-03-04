@@ -57,7 +57,7 @@ public class GeneradorTiquetes
      */
     public static boolean validarTiquete( String codigoTiquete )
     {
-        // TODO implementar
-        return false;
+        boolean esta = codigos.contains(codigoTiquete);
+        return esta;
     }
 }

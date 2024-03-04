@@ -18,7 +18,7 @@ public class Aeropuerto
     private double latitud;
     private double longitud;
     private static Set<String> codigosUtilizados = new HashSet<String>();
-	private static int RADIO_TERRESTRE = 6371;
+	private static final int RADIO_TERRESTRE = 6371;
     
 
     /**
@@ -35,34 +35,47 @@ public class Aeropuerto
      * @return La distancia en kilómetros entre los puntos
      */
 	
-	public Aeropuerto(String nombre, String codigo, String nombreCiudad, double latitud, double longitud)
+	public Aeropuerto(String nombre, String codigo, String nombreCiudad, double latitud, double longitud) throws AeropuertoDuplicadoException
 	{
-		
+		boolean esta = codigosUtilizados.contains(codigo);
+		if (esta == true)
+		{	
+			throw new AeropuertoDuplicadoException(codigo);
+		}
+		else
+		{
+			codigosUtilizados.add(codigo);
+			this.nombre = nombre;
+			this.codigo = codigo;
+			this.nombreCiudad = nombreCiudad;
+			this.latitud = latitud;
+			this.longitud = longitud;
+		}
 	}
 	
 	public String getNombre()
 	{
-		return null;
+		return nombre;
 	}
 	
 	public String getCodigo()
 	{
-		return null;
+		return codigo;
 	}
 	
 	public String getNombreCiudad()
 	{
-		return null;
+		return nombreCiudad;
 	}
 	
 	public double getLatitud()
 	{
-		return -1;
+		return latitud;
 	}
 	
 	public double getLongitud()
 	{
-		return -1;
+		return longitud;
 	}
 	
     public static int calcularDistancia( Aeropuerto aeropuerto1, Aeropuerto aeropuerto2 )
