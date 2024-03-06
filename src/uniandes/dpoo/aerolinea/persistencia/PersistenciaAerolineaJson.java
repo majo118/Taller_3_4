@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
-import java.util.Collection;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,7 +14,6 @@ import uniandes.dpoo.aerolinea.modelo.Aeropuerto;
 import uniandes.dpoo.aerolinea.modelo.Avion;
 import uniandes.dpoo.aerolinea.modelo.Ruta;
 import uniandes.dpoo.aerolinea.modelo.Vuelo;
-import uniandes.dpoo.aerolinea.modelo.cliente.Cliente;
 
 public class PersistenciaAerolineaJson implements IPersistenciaAerolinea 
 {
@@ -135,8 +133,10 @@ public class PersistenciaAerolineaJson implements IPersistenciaAerolinea
 			String rutaHoraS = ruta.getString(HORA_SALIDA);
 			String rutaHoraL = ruta.getString(HORA_LLEGADA);
 			String rutaCodigo = ruta.getString(CODIGO_RUTA);
-			String rutaOrigen = ruta.getString(ORIGEN);
-			String rutaDestino = ruta.getString(DESTINO);
+			Object objDestino = ruta.getJSONObject(DESTINO);
+			Aeropuerto rutaDestino = (Aeropuerto) objDestino;
+			Object objOrigen = ruta.getJSONObject(ORIGEN);
+			Aeropuerto rutaOrigen = (Aeropuerto) objOrigen;
 			
 			Ruta nuevaRuta = new Ruta (rutaOrigen, rutaDestino, rutaHoraS, rutaHoraL, rutaCodigo);
 			
@@ -148,21 +148,22 @@ public class PersistenciaAerolineaJson implements IPersistenciaAerolinea
 	
 	private void cargarVuelos( Aerolinea aerolinea, JSONArray jVuelos )
 	{
-//		int numVuelos = jVuelos.length( );
-//		for( int i = 0; i < numVuelos; i++ )
-//        {
-//			JSONObject vuelo = jVuelos.getJSONObject( i );
-//
-//			
-//			String fecha = vuelo.getString(FECHA);
-//			String avion = vuelo.getString(AVION);
-//			String ruta = vuelo.getString(RUTA);
-//
-//			
-//			Vuelo nuevoVuelo = new Vuelo (fecha, avion, ruta);
-//			
-//			aerolinea.agregarVuelo(nuevoVuelo);
-//        }
+		int numVuelos = jVuelos.length( );
+		for( int i = 0; i < numVuelos; i++ )
+        {
+			JSONObject vuelo = jVuelos.getJSONObject( i );
+
+			
+			String fecha = vuelo.getString(FECHA);
+			Object objAvion = vuelo.getJSONObject(AVION);
+			Avion avion = (Avion) objAvion;
+			String nombreAvion = avion.getNombre();
+			Object objRuta = vuelo.getJSONObject(RUTA);
+			Ruta ruta = (Ruta) objRuta ;
+			String codigo = ruta.getCodigoRuta();
+
+			aerolinea.programarVuelo(fecha, codigo, nombreAvion);
+        }
 
 	}
 }

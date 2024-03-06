@@ -13,7 +13,7 @@ public class CalculadoraTarifasTemporadaBaja extends CalculadoraTarifas
 	protected final double DESCUENTO_MEDIAS = 0.1;
 	protected final double DESCUENTO_GRANDES = 0.2;
 	
-	public int calcularCostoBase(Vuelo vuelo, Cliente cliente)
+	protected int calcularCostoBase(Vuelo vuelo, Cliente cliente)
 	{
 		Ruta ruta = vuelo.getRuta();
 		int distancia = calcularDistanciaVuelo(ruta);
@@ -30,7 +30,7 @@ public class CalculadoraTarifasTemporadaBaja extends CalculadoraTarifas
 		return costo;
 	}
 	
-	public double calcularPorcentajeDescuento(Cliente cliente)
+	protected double calcularPorcentajeDescuento(Cliente cliente)
 	{
 		double descuento = 0.0;
 		

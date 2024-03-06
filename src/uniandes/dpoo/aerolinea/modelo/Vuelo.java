@@ -69,10 +69,22 @@ public class Vuelo
 		return tiquetesVendidos;
 	}
 	
-//	public boolean equals(Object obj)
-//	{
-//		equals(obj);
-//		return false;
-//	}
+	public boolean equals(Object obj)
+	{
+		Vuelo comparacion=(Vuelo) obj;
+		
+		String fechaO = comparacion.getFecha();
+		Ruta rutaO = comparacion.getRuta();
+		String codigoO = rutaO.getCodigoRuta();
+		
+		String fecha = this.getFecha();
+		Ruta ruta = this.getRuta();
+		String codigo = ruta.getCodigoRuta();
+		
+		if ((fechaO.equals(fecha))&& ( codigoO.equals(codigo)));
+		{
+			return true;
+		}
+	}
 	
 }

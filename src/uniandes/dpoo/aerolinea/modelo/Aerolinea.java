@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +11,13 @@ import java.util.Map;
 import uniandes.dpoo.aerolinea.exceptions.InformacionInconsistenteException;
 import uniandes.dpoo.aerolinea.exceptions.VueloSobrevendidoException;
 import uniandes.dpoo.aerolinea.modelo.cliente.Cliente;
+import uniandes.dpoo.aerolinea.modelo.tarifas.CalculadoraTarifasTemporadaAlta;
+import uniandes.dpoo.aerolinea.modelo.tarifas.CalculadoraTarifasTemporadaBaja;
 import uniandes.dpoo.aerolinea.persistencia.CentralPersistencia;
 import uniandes.dpoo.aerolinea.persistencia.IPersistenciaAerolinea;
 import uniandes.dpoo.aerolinea.persistencia.IPersistenciaTiquetes;
 import uniandes.dpoo.aerolinea.persistencia.TipoInvalidoException;
+import uniandes.dpoo.aerolinea.tiquetes.GeneradorTiquetes;
 import uniandes.dpoo.aerolinea.tiquetes.Tiquete;
 
 /**
@@ -290,7 +292,7 @@ public class Aerolinea
      * @param nombreAvion El nombre del avión que realizará el vuelo
      * @throws Exception Lanza esta excepción si hay algún problema con los datos suministrados
      */
-    public void programarVuelo( String fecha, String codigoRuta, String nombreAvion ) throws Exception
+    public void programarVuelo( String fecha, String codigoRuta, String nombreAvion ) 
     {
     	boolean encontrado = false;
     	Avion avionV = null;
@@ -334,8 +336,64 @@ public class Aerolinea
      */
     public int venderTiquetes( String identificadorCliente, String fecha, String codigoRuta, int cantidad ) throws VueloSobrevendidoException, Exception
     {
-        // TODO Implementar el método
-        return -1;
+    	Cliente cliente = clientes.get(identificadorCliente);
+    	boolean encontrado = false;
+    	int i = 0;
+    	int tiquetesVendidos = 0;
+    	while (encontrado==false && (i < vuelos.size()))
+    	{
+    		Vuelo vuelo = vuelos.get(i);
+    		String fecha2 = vuelo.getFecha();
+    		if (fecha2.equals(fecha))
+    		{
+	    		Ruta ruta = vuelo.getRuta();
+	    		String codigoR2 = ruta.getCodigoRuta();
+	    		if (codigoR2.equals(codigoRuta));
+	    		{
+	    			encontrado = true;
+	    			int mes = Integer.parseInt(fecha.substring(4,7));
+	    			if ((00 <= mes && mes<= 05) || (07 <= mes && mes<= 11))
+	    			{
+	    				CalculadoraTarifasTemporadaBaja calculadora = new CalculadoraTarifasTemporadaBaja();
+	    				int tarifa = calculadora.calcularTarifa(vuelo, cliente);
+	    				Avion avion = vuelo.getAvion();
+	    				int capacidad = avion.getCapacidad();
+	    				for (int j=0; j<=cantidad; j++)
+	    				{	
+	    					if(j > capacidad)
+	    						throw new VueloSobrevendidoException(vuelo);
+	    					else
+	    					{
+	    						Tiquete tiquete = GeneradorTiquetes.generarTiquete(vuelo, cliente, tarifa);
+	    						cliente.agregarTiquete(tiquete);
+	    						tiquetesVendidos++;
+	    					}
+	    				}
+	    			}
+	    			else
+	    			{
+	    				CalculadoraTarifasTemporadaAlta calculadora = new CalculadoraTarifasTemporadaAlta();
+	    				int tarifa = calculadora.calcularTarifa(vuelo, cliente);
+	    				Avion avion = vuelo.getAvion();
+	    				int capacidad = avion.getCapacidad();
+	    				for (int j=0; j<=cantidad; j++)
+	    				{	
+	    					if(j > capacidad)
+	    						throw new VueloSobrevendidoException(vuelo);
+	    					else
+	    					{
+	    						Tiquete tiquete = GeneradorTiquetes.generarTiquete(vuelo, cliente, tarifa);
+	    						cliente.agregarTiquete(tiquete);
+	    						tiquetesVendidos++;
+	    					}
+	    				}
+	    			}
+	    		}
+    		}
+    		
+    		i++;
+    	}
+        return tiquetesVendidos;
     }
 
     /**
@@ -345,7 +403,24 @@ public class Aerolinea
      */
     public void registrarVueloRealizado( String fecha, String codigoRuta )
     {
-        // TODO Implementar el método
+    	int i = 0;
+    	boolean encontrado = false;
+    	while (encontrado==false && (i < vuelos.size()))
+    	{
+    		Vuelo vuelo = vuelos.get(i);
+    		String fecha2 = vuelo.getFecha();
+    		if (fecha2.equals(fecha))
+    		{
+    			Ruta ruta = vuelo.getRuta();
+	    		String codigoR2 = ruta.getCodigoRuta();
+	    		if (codigoR2.equals(codigoRuta));
+	    		{
+	    			vuelos.remove(i);
+	    			encontrado = true;
+	    		}
+    		}
+    		i++;
+    	}
     }
 
     /**
