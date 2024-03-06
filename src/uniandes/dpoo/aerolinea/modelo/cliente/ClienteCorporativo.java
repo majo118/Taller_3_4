@@ -27,7 +27,7 @@ public class ClienteCorporativo extends Cliente
     
     public int getTamanoEmpresa()
     {
-    	return -1;
+    	return tamanoEmpresa;
     }
     
     public String getTipoCliente()
@@ -37,7 +37,7 @@ public class ClienteCorporativo extends Cliente
     
     public String getIdentificador() 
     {
-    	return null;
+    	return nombreEmpresa;
     }
 
     /**

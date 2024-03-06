@@ -292,7 +292,29 @@ public class Aerolinea
      */
     public void programarVuelo( String fecha, String codigoRuta, String nombreAvion ) throws Exception
     {
-        // TODO Implementar el método
+    	boolean encontrado = false;
+    	Avion avionV = null;
+    	for (int i=0; i < vuelos.size(); i++)
+    	{
+    		Vuelo vuelo = vuelos.get(i);
+    		Avion avion = vuelo.getAvion();
+    		String nombreA = avion.getNombre();
+    		if ( nombreA.equals(nombreAvion))
+    		{
+    			String fecha2 = vuelo.getFecha();
+    			avionV = avion;
+    			if (fecha.equals(fecha2))
+    			{
+    				encontrado = true;
+    			}
+    		}
+    	}
+    	if (encontrado == false)
+    	{
+    		Ruta ruta = rutas.get(codigoRuta);
+    		Vuelo nuevoVuelo = new Vuelo (ruta, fecha, avionV);
+    		vuelos.add(nuevoVuelo);
+    	}
     }
 
     /**
@@ -333,8 +355,10 @@ public class Aerolinea
      */
     public String consultarSaldoPendienteCliente( String identificadorCliente )
     {
-        // TODO Implementar el método
-        return "";
+    	Cliente cliente = clientes.get(identificadorCliente);
+    	int saldo = cliente.calcularSaldoPendiente();
+
+        return "" + saldo;
     }
 
 }

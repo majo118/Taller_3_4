@@ -38,6 +38,18 @@ public abstract class Cliente
 		return valor;
 	}
 	
+	public int calcularSaldoPendiente()
+	{
+		int valor = 0;
+		for (int i=0; i < tiquetesSinUsar.size(); i++)
+    	{
+			Tiquete tiquete = tiquetesSinUsar.get(i);
+			int num = tiquete.getTarifa();
+			valor = valor + num;
+    	}
+		return valor;
+	}
+	
 	public void usarTiquetes(Vuelo vuelo)
 	{
 		for (int i=0; i < tiquetesSinUsar.size(); i++)

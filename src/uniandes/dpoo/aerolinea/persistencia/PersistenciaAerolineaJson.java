@@ -138,9 +138,9 @@ public class PersistenciaAerolineaJson implements IPersistenciaAerolinea
 			String rutaOrigen = ruta.getString(ORIGEN);
 			String rutaDestino = ruta.getString(DESTINO);
 			
-//			Ruta nuevaRuta = new Ruta (rutaOrigen, rutaDestino, rutaHoraS, rutaHoraL, rutaCodigo);
-//			
-//			aerolinea.agregarRuta(nuevaRuta);
+			Ruta nuevaRuta = new Ruta (rutaOrigen, rutaDestino, rutaHoraS, rutaHoraL, rutaCodigo);
+			
+			aerolinea.agregarRuta(nuevaRuta);
         }
 			
         
